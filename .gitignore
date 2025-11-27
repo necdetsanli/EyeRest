@@ -1,0 +1,52 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+_UpgradeReport_Files/
+Backup*/
+Build*/
+*.log
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Rider, Resharper
+.idea/
+_ReSharper*/
+*.DotSettings.user
+
+# VS Code
+.vscode/
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Test results
+TestResults/
+
+# Publish
+publish/
+*.Publish.xml
+
+# Certificates, secrets, and user files
+*.pfx
+*.publishsettings
+appsettings.*.json
+*.env
+
+# Ignore bin outputs in top-level src folders if present
+src/**/[Bb]in/
+src/**/[Oo]bj/
