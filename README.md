@@ -151,7 +151,7 @@ EyeRest/
       │  └─ Settings.Designer.cs
       ├─ bin/      (build output – not committed)
       └─ obj/      (intermediate files – not committed)
-
+```
 ---
 
 ## 🛠 Development Notes
