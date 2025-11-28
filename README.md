@@ -193,6 +193,19 @@ If you want to extend EyeRest, some ideas:
 
 ---
 
+## 📜 Changelog
+
+For a detailed list of changes and release history, see the [CHANGELOG](CHANGELOG.md).
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!  
+Please check [CONTRIBUTING](CONTRIBUTING.md) for guidelines on reporting issues and submitting pull requests.
+
+---
+
 ## 📄 License
 
 This project is licensed under the **MIT License**.
