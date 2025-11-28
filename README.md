@@ -57,7 +57,21 @@ EyeRest helps you actually follow this rule by:
 
 ---
 
-## 📦 Installation
+## 💾 Download
+
+For end users, the simplest way to install EyeRest is via the MSI installer:
+
+1. Go to the **[Releases](https://github.com/necdetsanli/EyeRest/releases)** page of this repository.
+2. Download the latest `EyeRest-<version>-setup.msi` file (for example: `EyeRest-1.0.0-setup.msi`).
+3. Double-click the MSI and follow the installation wizard.
+
+> After installation, EyeRest will be available from your Start menu and can be pinned or added to startup according to your preferences.
+
+> **System requirements:** Windows 10/11 (or compatible) and **.NET Framework 4.8**.
+
+---
+
+## 📦 Installation from Source
 
 1. **Build from source**
    - Open `EyeRest.sln` in **Visual Studio** (2019 or later recommended).
@@ -130,27 +144,33 @@ A typical repository layout for EyeRest might look like:
 ```text
 EyeRest/
 ├─ README.md
+├─ CHANGELOG.md
+├─ LICENSE
 ├─ EyeRest.sln
 ├─ .gitignore
 ├─ .editorconfig
-└─ src/
-   └─ EyeRest/
-      ├─ EyeRest.csproj
-      ├─ Program.cs
-      ├─ EyeRestContext.cs
-      ├─ Configuration.cs
-      ├─ Configuration.Designer.cs
-      ├─ Configuration.resx
-      ├─ AppIcon.ico
-      ├─ app.config
-      ├─ Properties/
-      │  ├─ AssemblyInfo.cs
-      │  ├─ Resources.resx
-      │  ├─ Resources.Designer.cs
-      │  ├─ Settings.settings
-      │  └─ Settings.Designer.cs
-      ├─ bin/      (build output – not committed)
-      └─ obj/      (intermediate files – not committed)
+├─ src/
+│  └─ EyeRest/
+│     ├─ EyeRest.csproj
+│     ├─ Program.cs
+│     ├─ EyeRestContext.cs
+│     ├─ Configuration.cs
+│     ├─ Configuration.Designer.cs
+│     ├─ Configuration.resx
+│     ├─ AppIcon.ico
+│     ├─ app.config
+│     ├─ Properties/
+│     │  ├─ AssemblyInfo.cs
+│     │  ├─ Resources.resx
+│     │  ├─ Resources.Designer.cs
+│     │  ├─ Settings.settings
+│     │  └─ Settings.Designer.cs
+│     ├─ bin/      (build output – not committed)
+│     └─ obj/      (intermediate files – not committed)
+└─ EyeRest.Setup/
+   ├─ EyeRest.Setup.vdproj
+   ├─ Debug/       (installer build output – ignored)
+   └─ Release/     (installer build output – ignored)
 ```
 ---
 
