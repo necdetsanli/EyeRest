@@ -4,6 +4,8 @@ VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeRest", "src\EyeRest\EyeRest.csproj", "{15C4E083-5741-477B-A153-D0C24F80C245}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "EyeRest.setup", "EyeRest.setup\EyeRest.setup.vdproj", "{F282C44C-0EB5-AC0D-35D8-2762B3911FCE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +16,8 @@ Global
 		{15C4E083-5741-477B-A153-D0C24F80C245}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15C4E083-5741-477B-A153-D0C24F80C245}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15C4E083-5741-477B-A153-D0C24F80C245}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F282C44C-0EB5-AC0D-35D8-2762B3911FCE}.Debug|Any CPU.ActiveCfg = Debug
+		{F282C44C-0EB5-AC0D-35D8-2762B3911FCE}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
