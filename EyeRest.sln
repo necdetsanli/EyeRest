@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeRest", "EyeRest.csproj", "{15C4E083-5741-477B-A153-D0C24F80C245}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeRest", "src\EyeRest\EyeRest.csproj", "{15C4E083-5741-477B-A153-D0C24F80C245}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
