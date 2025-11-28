@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings"
+              CurrentProfile="(Default)"
+              GeneratedClassNamespace="EyeRest.Properties"
+              GeneratedClassName="Settings">
+	<Profiles />
+	<Settings>
+		<Setting Name="ShowMessage" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">True</Value>
+		</Setting>
+
+		<Setting Name="TimerIntervalMs" Type="System.Int32" Scope="User">
+			<!-- Default: 20 minutes in milliseconds -->
+			<Value Profile="(Default)">1200000</Value>
+		</Setting>
+
+		<Setting Name="EnableSound" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">True</Value>
+		</Setting>
+
+		<Setting Name="ShowBalloon" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">True</Value>
+		</Setting>
+
+		<Setting Name="BalloonTimeoutMs" Type="System.Int32" Scope="User">
+			<!-- Default: 3 seconds -->
+			<Value Profile="(Default)">3000</Value>
+		</Setting>
+	</Settings>
+</SettingsFile>
