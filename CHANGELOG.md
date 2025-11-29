@@ -12,8 +12,19 @@ and the project aims to follow [Semantic Versioning](https://semver.org/spec/v2.
 ### Added
 - (Planned) Configurable reminder interval instead of a fixed 20 minutes
 - (Planned) Snooze functionality to temporarily pause reminders
-- (Planned) Settings persistence across sessions
 - (Planned) More flexible notification options (sound on/off, different cues)
+
+---
+
+## [1.0.1] - 2025-11-29
+
+### Changed
+- Updated the application icon for consistent branding across the tray, configuration window and Start Menu shortcuts.
+- Embedded the app icon at the top of the README for better visual identity.
+- Added proper attribution and licensing information for the icon asset.
+
+### Fixed
+- Ensured the MSI installer uses the new icon for shortcuts and the Apps & Features entry.
 
 ---
 
@@ -35,6 +46,6 @@ and the project aims to follow [Semantic Versioning](https://semver.org/spec/v2.
 
 ---
 
-[Unreleased]: https://github.com/necdetsanli/EyeRest/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/necdetsanli/EyeRest/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.0.1
 [1.0.0]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.0.0
-
