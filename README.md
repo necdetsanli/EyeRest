@@ -1,5 +1,9 @@
 # EyeRest
 
+<p align="center">
+  <img src="assets/icon.png" alt="EyeRest icon" width="128" />
+</p>
+
 A lightweight Windows tray application that gently reminds you to follow the **20–20–20 rule**:  
 every **20 minutes**, look at something **20 feet (~6 meters) away** for at least **20 seconds**.
 
@@ -218,5 +222,9 @@ See the [LICENSE](LICENSE) file for full license text.
 
 EyeRest is inspired by the need to protect our eyes during long coding, gaming, or office sessions.  
 If this tool helps you remember to look away from the screen from time to time, it’s doing its job.
+
+The application icon is based on work by **Maxicons** from **https://icon-icons.com/**,  
+licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).  
+Original icon: https://icon-icons.com/icon/eye-disease-medical-health-retina-optical-lens/133505
 
 Stay healthy, and don’t forget to blink.
