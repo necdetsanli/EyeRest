@@ -150,9 +150,12 @@ EyeRest/
 ├─ README.md
 ├─ CHANGELOG.md
 ├─ LICENSE
+├─ CONTRIBUTING.md
 ├─ EyeRest.sln
 ├─ .gitignore
 ├─ .editorconfig
+├─ assets/
+│  └─ icon.png
 ├─ src/
 │  └─ EyeRest/
 │     ├─ EyeRest.csproj
@@ -167,7 +170,7 @@ EyeRest/
 │     │  ├─ AssemblyInfo.cs
 │     │  ├─ Resources.resx
 │     │  ├─ Resources.Designer.cs
-│     │  ├─ Settings.settings
+│     │  │  ├─ Settings.settings
 │     │  └─ Settings.Designer.cs
 │     ├─ bin/      (build output – not committed)
 │     └─ obj/      (intermediate files – not committed)
