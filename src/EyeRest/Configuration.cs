@@ -14,6 +14,7 @@ namespace EyeRest
         {
             // Initialize form controls and event handlers
             InitializeComponent();
+            this.Icon = EyeRest.Properties.Resources.AppIcon;
         }
 
         // Populate controls from persisted settings when the dialog is shown.

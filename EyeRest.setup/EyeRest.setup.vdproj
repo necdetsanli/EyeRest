@@ -21,7 +21,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_89DED729CDA94369955B13146C2AA5CE"
+        "MsmKey" = "8:_DB896E296F104B5FBF033BDA1A63B553"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -49,6 +49,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -65,6 +73,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -94,7 +110,7 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_89DED729CDA94369955B13146C2AA5CE"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DB896E296F104B5FBF033BDA1A63B553"
             {
             "SourcePath" = "8:..\\src\\EyeRest\\AppIcon.ico"
             "TargetName" = "8:AppIcon.ico"
@@ -199,7 +215,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_DB896E296F104B5FBF033BDA1A63B553"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -313,7 +329,7 @@
             "Target" = "8:_4D4C97F049564619AEA4F7329129E07D"
             "Folder" = "8:_1CA928F46DF546E2903FDA37E523E685"
             "WorkingFolder" = "8:_3B3E1151EA9F465D980D6DFBC84B3B0C"
-            "Icon" = "8:"
+            "Icon" = "8:_DB896E296F104B5FBF033BDA1A63B553"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_56060FC125AF465EB506E44FA8BA9936"
@@ -327,7 +343,7 @@
             "Target" = "8:_4D4C97F049564619AEA4F7329129E07D"
             "Folder" = "8:_74F8E00B1688476F9805F4FA4AAD7212"
             "WorkingFolder" = "8:_3B3E1151EA9F465D980D6DFBC84B3B0C"
-            "Icon" = "8:"
+            "Icon" = "8:_DB896E296F104B5FBF033BDA1A63B553"
             "Feature" = "8:"
             }
         }
