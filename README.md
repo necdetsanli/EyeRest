@@ -3,6 +3,7 @@
 <p align="center">
   <img src="assets/icon.png" alt="EyeRest icon" width="128" />
 </p>
+
 <p align="center">
   <a href="https://github.com/necdetsanli/EyeRest/releases/latest">
     <img src="https://img.shields.io/github/v/release/necdetsanli/EyeRest?label=release" alt="Latest release" />
@@ -12,8 +13,8 @@
   </a>
   <a href="https://github.com/necdetsanli/EyeRest/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/necdetsanli/EyeRest?label=license" alt="License" />
-    <img src="https://img.shields.io/badge/telemetry-none-success" alt="No telemetry" />
   </a>
+  <img src="https://img.shields.io/badge/telemetry-none-success" alt="No telemetry" />
 </p>
 
 A lightweight Windows tray application that gently reminds you to follow the **20–20–20 rule**:  
