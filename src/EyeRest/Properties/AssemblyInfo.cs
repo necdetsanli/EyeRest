@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("EyeRest")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Home")]
+[assembly: AssemblyDescription("Lightweight tray app that reminds you to follow the 20-20-20 rule.")]
+[assembly: AssemblyConfiguration("Release")]
+[assembly: AssemblyCompany("Necdet Şanlı")]
 [assembly: AssemblyProduct("EyeRest")]
-[assembly: AssemblyCopyright("Copyright © Home 2007")]
+[assembly: AssemblyCopyright("Copyright © Necdet Şanlı 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,6 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.1.0")]
-[assembly: AssemblyFileVersion("1.0.1.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyInformationalVersion("1.1.0")]

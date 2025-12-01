@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
+using System.Threading;
 using System.Windows.Forms;
-using EyeRest;
-
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace EyeRest
 {
@@ -13,11 +11,18 @@ namespace EyeRest
     {
         // The NotifyIcon that appears in the system tray.
         NotifyIcon notifyIcon = new NotifyIcon();
+
         // Configuration form created lazily when user opens settings.
         Configuration configWindow = null; // create lazily
 
-        // The timer that triggers periodic reminders.
-        Timer myTimer = new Timer();
+        // System.Threading.Timer that triggers periodic reminders on a ThreadPool thread.
+        System.Threading.Timer myTimer;
+
+        // Lightweight control created on the UI thread to marshal callbacks to the UI thread.
+        Control uiInvoker;
+
+        // Interval in milliseconds between reminders.
+        readonly int timerIntervalMs;
 
         public EyeRestApplicationContext()
         {
@@ -28,13 +33,26 @@ namespace EyeRest
             notifyIcon.ContextMenu = new ContextMenu(new MenuItem[] { configMenuItem, exitMenuItem });
             notifyIcon.Visible = true;
 
-            myTimer.Tick += new EventHandler(ShowMessage);
 #if DEBUG
-            // Short interval for testing in Debug builds
-            myTimer.Interval = 5000; // 5 seconds
+            timerIntervalMs = 5000; // 5 seconds for debugging
 #else
-            myTimer.Interval = 1200000; // 20 minutes
+            timerIntervalMs = 1200000; // 20 minutes in release
 #endif
+
+            // Create UI invoker control on the UI thread for marshaling.
+            uiInvoker = new Control();
+            try
+            {
+                // Force handle creation so BeginInvoke works.
+                IntPtr tmp = uiInvoker.Handle;
+            }
+            catch
+            {
+                // swallow
+            }
+
+            // Create a timer but do not start it yet.
+            myTimer = new System.Threading.Timer(ShowMessageCallback, null, Timeout.Infinite, Timeout.Infinite);
 
             // Ensure the app defaults to showing notifications on each startup.
             // This sets the in-memory setting only and does not persist the change.
@@ -58,31 +76,92 @@ namespace EyeRest
                     // restore app icon and tooltip
                     notifyIcon.Icon = EyeRest.Properties.Resources.AppIcon;
                     notifyIcon.Text = "EyeRest - Rest Reminder";
-                    myTimer.Start();
+                    StartTimer();
                 }
                 else
                 {
                     // change tooltip and icon to indicate disabled notifications
                     try { notifyIcon.Icon = SystemIcons.Application; } catch { }
                     notifyIcon.Text = "EyeRest - notifications disabled";
-                    myTimer.Stop();
+                    StopTimer();
                 }
             }
             catch { /* don't let notification state failures crash app */ }
         }
 
-        // Timer tick handler: show balloon if enabled, otherwise ensure timer stopped.
-        void ShowMessage(object sender, EventArgs e)
+        private void StartTimer()
         {
-            if (!EyeRest.Properties.Settings.Default.ShowMessage)
+            try
             {
-                // ensure timer stopped
-                try { myTimer.Stop(); } catch { }
+                myTimer?.Change(timerIntervalMs, timerIntervalMs);
+            }
+            catch { /* ignore timer start failures */ }
+        }
+
+        private void StopTimer()
+        {
+            try
+            {
+                myTimer?.Change(Timeout.Infinite, Timeout.Infinite);
+            }
+            catch { /* ignore timer stop failures */ }
+        }
+
+        // Timer callback (runs on ThreadPool). Marshal UI work to UI thread.
+        void ShowMessageCallback(object state)
+        {
+            bool enabled;
+            try
+            {
+                enabled = EyeRest.Properties.Settings.Default.ShowMessage;
+            }
+            catch
+            {
+                StopTimer();
                 return;
             }
 
-            // Show only a non-modal balloon tip; avoid blocking dialogs.
-            try { notifyIcon.ShowBalloonTip(3000, "EyeRest reminder", "You should take rest for at least 20 seconds!", ToolTipIcon.Info); } catch { }
+            if (!enabled)
+            {
+                StopTimer();
+                return;
+            }
+
+            try
+            {
+                uiInvoker.BeginInvoke((Action)(() =>
+                {
+                    try
+                    {
+                        ShowToastReminder();
+                    }
+                    catch
+                    {
+                        // swallow UI exceptions
+                    }
+                }));
+            }
+            catch
+            {
+                // swallow marshaling failures
+            }
+        }
+
+        // Build and display a Windows 10/11 toast, falling back to balloon tip if necessary.
+        private void ShowToastReminder()
+        {
+            try
+            {
+                // Requires Microsoft.Toolkit.Uwp.Notifications NuGet package.
+                new ToastContentBuilder()
+                    .AddText("EyeRest reminder")
+                    .AddText("You should take rest for at least 20 seconds!")
+                    .Show();
+            }
+            catch
+            {
+                try { notifyIcon.ShowBalloonTip(3000, "EyeRest reminder", "You should take rest for at least 20 seconds!", ToolTipIcon.Info); } catch { }
+            }
         }
 
         // Show configuration dialog. Created lazily and disposed after close.
@@ -118,30 +197,43 @@ namespace EyeRest
         }
 
         // Stop timers, remove icon and exit this ApplicationContext's message loop.
+        // call from UI thread (e.g. Exit handler)
         private void CleanUpAndExit()
         {
-            try { myTimer.Tick -= ShowMessage; } catch { }
+            try { StopTimer(); } catch { }
 
-            try { myTimer.Stop(); myTimer.Dispose(); } catch { }
+            try
+            {
+                if (myTimer != null)
+                {
+                    // prevent further callbacks and wait up to 5s for running callbacks to finish
+                    var waitHandle = new System.Threading.ManualResetEvent(false);
+                    try
+                    {
+                        myTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                    }
+                    catch { }
+                    try
+                    {
+                        myTimer.Dispose(waitHandle);
+                        // wait for any running callback to finish (avoid blocking indefinitely)
+                        waitHandle.WaitOne(5000);
+                    }
+                    catch { }
+                    finally
+                    {
+                        try { waitHandle.Dispose(); } catch { }
+                    }
+                    myTimer = null;
+                }
+            }
+            catch { }
 
             try { notifyIcon.Visible = false; notifyIcon.Dispose(); } catch { }
+            try { uiInvoker?.Dispose(); } catch { }
 
-            // Exit the message loop for this ApplicationContext.
+            // finally exit message loop for this ApplicationContext
             ExitThread();
         }
-
-        // Dispose managed resources when the context is disposed.
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                try { myTimer.Tick -= ShowMessage; } catch { }
-                try { myTimer?.Dispose(); } catch { }
-                try { notifyIcon?.Dispose(); } catch { }
-                try { configWindow?.Dispose(); } catch { }
-            }
-            base.Dispose(disposing);
-        }
-
     }
 }
