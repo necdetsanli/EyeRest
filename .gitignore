@@ -5,6 +5,9 @@
 *.userosscache
 *.sln.docstates
 
+# Visual Studio migration backups
+MigrationBackup/
+
 # Build results
 [Bb]in/
 [Oo]bj/
