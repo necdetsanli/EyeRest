@@ -3,6 +3,18 @@
 <p align="center">
   <img src="assets/icon.png" alt="EyeRest icon" width="128" />
 </p>
+<p align="center">
+  <a href="https://github.com/necdetsanli/EyeRest/releases/latest">
+    <img src="https://img.shields.io/github/v/release/necdetsanli/EyeRest?label=release" alt="Latest release" />
+  </a>
+  <a href="https://github.com/necdetsanli/EyeRest/releases">
+    <img src="https://img.shields.io/github/downloads/necdetsanli/EyeRest/total?label=downloads" alt="Downloads" />
+  </a>
+  <a href="https://github.com/necdetsanli/EyeRest/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/necdetsanli/EyeRest?label=license" alt="License" />
+  </a>
+  <img src="https://img.shields.io/badge/telemetry-none-success" alt="No telemetry" />
+</p>
 
 A lightweight Windows tray application that gently reminds you to follow the **20–20–20 rule**:  
 every **20 minutes**, look at something **20 feet (~6 meters) away** for at least **20 seconds**.
