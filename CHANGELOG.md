@@ -16,6 +16,24 @@ and the project aims to follow [Semantic Versioning](https://semver.org/spec/v2.
 
 ---
 
+## [1.1.0] - 2025-12-01
+
+### Added
+- Windows 10/11 **toast notifications** for reminder messages using `Microsoft.Toolkit.Uwp.Notifications`.
+- Fallback logic to use classic tray balloon tips when toast notifications are not available or fail at runtime.
+
+### Changed
+- Replaced `System.Windows.Forms.Timer` with `System.Threading.Timer` to schedule reminders on a ThreadPool thread.
+- Introduced a small UI invoker `Control` and `BeginInvoke` to safely marshal timer callbacks back to the UI thread.
+- Refined `NotifyIcon` and tooltip behavior, including handling double-click to open the configuration dialog.
+- Improved shutdown behavior by waiting briefly for any in-flight timer callbacks to complete before disposing the timer, reducing the risk of race conditions.
+- Updated assembly metadata:
+  - `AssemblyCompany` set to `"Necdet Şanlı"`.
+  - `AssemblyConfiguration` set to `"Release"`.
+  - Version fields updated to `1.1.0.0` / informational version `1.1.0`.
+
+---
+
 ## [1.0.1] - 2025-11-29
 
 ### Changed
@@ -46,6 +64,7 @@ and the project aims to follow [Semantic Versioning](https://semver.org/spec/v2.
 
 ---
 
-[Unreleased]: https://github.com/necdetsanli/EyeRest/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/necdetsanli/EyeRest/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.1.0
 [1.0.1]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.0.1
 [1.0.0]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.0.0
