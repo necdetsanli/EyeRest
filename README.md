@@ -15,7 +15,7 @@ EyeRest sits quietly in the Windows system tray and periodically nudges you to t
 It is designed to be:
 
 - **Minimal** – no bloated UI, just a tray icon and a small configuration dialog.
-- **Non-intrusive** – reminders are shown as balloon notifications near the tray.
+- **Non-intrusive** – reminders are shown as **Windows 10/11 toast notifications** when possible, with a tray balloon fallback.
 - **Session-focused** – settings apply to the current run; when you restart the app, it goes back to the safe default of reminding you.
 
 EyeRest is built with **.NET Framework 4.8** and **Windows Forms**, targeting classic Windows desktop users who spend long hours in front of a screen.
@@ -32,7 +32,7 @@ A common recommendation is the **20–20–20 rule**:
 EyeRest helps you actually follow this rule by:
 
 - Tracking time in the background.
-- Showing a subtle but clear reminder in the system tray area.
+- Showing a subtle but clear reminder on your desktop.
 - Letting you temporarily disable reminders for the current session when needed.
 
 ---
@@ -41,19 +41,21 @@ EyeRest helps you actually follow this rule by:
 
 - 🕒 **Automatic reminders**  
   - Default interval: **20 minutes** between notifications.
-  - Uses a UI-thread-friendly timer (WinForms `Timer`) to stay responsive.
+  - Uses a background `System.Threading.Timer` with safe marshaling back to the UI thread for responsiveness.
 
-- 🔔 **Tray balloon notifications**  
-  - Displays a balloon tip from the tray icon with a short reminder.
-  - Optional system sound (depending on your implementation).
+- 🔔 **Desktop notifications**  
+  - Uses **Windows 10/11 toast notifications** (via `Microsoft.Toolkit.Uwp.Notifications`) when available.
+  - Falls back to a tray balloon tip if toast notifications are not supported or fail at runtime.
+  - Optional system sound (depending on OS settings).
 
 - ⚙️ **Simple configuration dialog**  
   - A single checkbox to **enable or disable reminders** for the current session.
-  - Accessible via the tray icon’s context menu.
+  - Accessible via the tray icon’s context menu (or double-click).
 
 - 🧽 **Clean exit & resource management**  
-  - Gracefully disposes the notify icon and timer on exit.
+  - Gracefully disposes the notify icon and timers on exit.
   - Uses `ApplicationContext` to run without a main window.
+  - Ensures timer callbacks complete (with a short timeout) during shutdown to avoid race conditions.
 
 - 🧱 **Safe defaults**  
   - Reminders are **enabled by default** on every start.
@@ -66,7 +68,7 @@ EyeRest helps you actually follow this rule by:
 For end users, the simplest way to install EyeRest is via the MSI installer:
 
 1. Go to the **[Releases](https://github.com/necdetsanli/EyeRest/releases)** page of this repository.
-2. Download the latest `EyeRest-<version>-setup.msi` file (for example: `EyeRest-1.0.0-setup.msi`).
+2. Download the latest `EyeRest-<version>-setup.msi` file (for example: `EyeRest-1.1.0-setup.msix`).
 3. Double-click the MSI and follow the installation wizard.
 
 > After installation, EyeRest will be available from your Start menu and can be pinned or added to startup according to your preferences.
@@ -127,10 +129,11 @@ EyeRest is implemented as a **Windows Forms tray application** with an `Applicat
 - **Application context**
   - `EyeRestApplicationContext`:
     - Creates the tray `NotifyIcon` using `AppIcon.ico`.
-    - Attaches a context menu (Configuration / Exit).
-    - Manages a `System.Windows.Forms.Timer` that:
-      - Uses a 20-minute interval in Release builds.
-      - Calls `ShowMessage` on each tick to display the balloon tip if reminders are enabled.
+    - Attaches a context menu (Configuration / Exit) and handles double-click to open the configuration dialog.
+    - Manages a `System.Threading.Timer` that:
+      - Uses a 20-minute interval in Release builds (shorter in Debug for testing).
+      - Runs callbacks on a ThreadPool thread and marshals UI work back to the UI thread via a small helper `Control`.
+      - On each tick, attempts to show a **toast notification**, and falls back to a tray balloon tip if necessary.
 
 - **Configuration dialog**
   - `Configuration` form:
@@ -170,7 +173,7 @@ EyeRest/
 │     │  ├─ AssemblyInfo.cs
 │     │  ├─ Resources.resx
 │     │  ├─ Resources.Designer.cs
-│     │  │  ├─ Settings.settings
+│     │  ├─ Settings.settings
 │     │  └─ Settings.Designer.cs
 │     ├─ bin/      (build output – not committed)
 │     └─ obj/      (intermediate files – not committed)
@@ -178,7 +181,8 @@ EyeRest/
    ├─ EyeRest.Setup.vdproj
    ├─ Debug/       (installer build output – ignored)
    └─ Release/     (installer build output – ignored)
-```
+````
+
 ---
 
 ## 🛠 Development Notes
@@ -186,16 +190,18 @@ EyeRest/
 - **Target framework:** `.NET Framework 4.8`
 - **UI framework:** Windows Forms
 - **Language version:** C# 7.3
-- **Key WinForms concepts used:**
+- **Key concepts used:**
   - `ApplicationContext` for lifetime management without a main window.
   - `NotifyIcon` for tray integration.
-  - `Timer` for periodic callbacks on the UI thread.
+  - `System.Threading.Timer` for background periodic callbacks, with marshaling back to the UI thread.
+  - Windows 10/11 toast notifications via `Microsoft.Toolkit.Uwp.Notifications`, with tray balloon fallback.
   - Resource & settings management via `Resources.resx` and `Settings.settings`.
 
 If you want to extend EyeRest, some ideas:
 
 - Make the reminder interval configurable (e.g. slider or numeric input).
 - Add basic logging instead of swallowing exceptions silently.
+- Add snooze controls or richer notification actions.
 - **Contributions are welcome** – feel free to open issues or submit pull requests.
 
 ---
