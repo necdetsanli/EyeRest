@@ -10,9 +10,33 @@ and the project aims to follow [Semantic Versioning](https://semver.org/spec/v2.
 ## [Unreleased]
 
 ### Added
-- (Planned) Configurable reminder interval instead of a fixed 20 minutes
 - (Planned) Snooze functionality to temporarily pause reminders
 - (Planned) More flexible notification options (sound on/off, different cues)
+
+---
+
+## [1.2.0] - 2025-12-02
+
+### Added
+- New **Options** dialog fields:
+  - A numeric input to configure the reminder interval in minutes (1–120, default 20).
+  - A checkbox to enable or disable using left-click on the tray icon to toggle reminders.
+- An **About** dialog showing app name, version, author info, privacy note and a link to the GitHub repository.
+- Short confirmation notifications when reminders are toggled on or off:
+  - Prefer Windows toast notifications when available.
+  - Fall back to tray balloon tips if toasts are not supported or fail.
+
+### Changed
+- Renamed the tray menu item from **“Configuration”** to **“Options…”** and updated the dialog title accordingly.
+- Updated the reminder checkbox text to **“Enable reminders”** for clearer wording.
+- The reminder timer now uses a session-only `ReminderIntervalMinutes` value instead of a hardcoded 20-minute interval in Release builds, while keeping the 5-second interval for DEBUG builds.
+- Left-click behavior on the tray icon is now configurable:
+  - When the left-click toggle option is enabled, a single click toggles the reminder state, updates the UI/timer and shows a confirmation notification.
+  - When it is disabled, a single left-click opens the Options dialog for better discoverability.
+- Double-click continues to open the Options dialog and cancels the single-click action to avoid duplicate handling.
+
+### Fixed
+- Ensured the tray icon consistently uses the dedicated **snooze icon** when reminders are disabled, instead of occasionally falling back to the default Windows application icon, including when using toast notifications with balloon fallback.
 
 ---
 
@@ -65,7 +89,8 @@ and the project aims to follow [Semantic Versioning](https://semver.org/spec/v2.
 
 ---
 
-[Unreleased]: https://github.com/necdetsanli/EyeRest/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/necdetsanli/EyeRest/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.2.0
 [1.1.0]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.1.0
 [1.0.1]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.0.1
 [1.0.0]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.0.0

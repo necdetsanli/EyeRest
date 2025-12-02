@@ -54,6 +54,7 @@ EyeRest helps you actually follow this rule by:
 
 - 🕒 **Automatic reminders**  
   - Default interval: **20 minutes** between notifications.
+  - The reminder interval is **configurable per session** (e.g. 5, 20, 45 minutes).
   - Uses a background `System.Threading.Timer` with safe marshaling back to the UI thread for responsiveness.
 
 - 🔔 **Desktop notifications**  
@@ -61,9 +62,11 @@ EyeRest helps you actually follow this rule by:
   - Falls back to a tray balloon tip if toast notifications are not supported or fail at runtime.
   - Optional system sound (depending on OS settings).
 
-- ⚙️ **Simple configuration dialog**  
-  - A single checkbox to **enable or disable reminders** for the current session.
-  - Accessible via the tray icon’s context menu (or double-click).
+- ⚙️ **Simple options dialog**  
+  - Lets you **enable or disable reminders** for the current session.
+  - Allows configuring the **reminder interval in minutes** within a safe range.
+  - Optional setting to **use left-click on the tray icon to toggle reminders** on/off.
+  - Accessible via the tray icon’s context menu (Options…) or by double-clicking the icon.
 
 - 🧽 **Clean exit & resource management**  
   - Gracefully disposes the notify icon and timers on exit.
@@ -73,6 +76,9 @@ EyeRest helps you actually follow this rule by:
 - 🧱 **Safe defaults**  
   - Reminders are **enabled by default** on every start.
   - Per-session configuration only (no persistent settings written to disk unless you decide to add that).
+
+- ℹ️ **About dialog**  
+  - Shows app name, version, author information, a short privacy note, and a link to the GitHub repository.
 
 ---
 
@@ -91,7 +97,7 @@ EyeRest is available on the Microsoft Store:
 If you prefer a direct installer:
 
 1. Go to the **[Releases](https://github.com/necdetsanli/EyeRest/releases)** page.
-2. Download the latest `EyeRest-<version>-setup.msi` file (for example: `EyeRest-1.1.0-setup.msi`).
+2. Download the latest `EyeRest-<version>-setup.msi` file (for example: `EyeRest-1.2.0-setup.msi`).
 3. Double-click the MSI and follow the installation wizard.
 
 > After installation, EyeRest will be available from your Start menu and can be pinned or added to startup according to your preferences.
@@ -126,12 +132,18 @@ Once EyeRest is running:
   - Appears in the Windows notification area (system tray).
   - Hover to see a tooltip about the current state (reminders enabled/disabled).
 
-- **Configuration**
-  - Right-click the tray icon and select **Configuration…**  
+- - **Options**
+  - Right-click the tray icon and select **Options…**  
     *or* double-click the icon.
-  - A small dialog will appear with a checkbox:
-    - **“Warn Me After Every 20 Minutes”**
-  - Check/uncheck the box and click **OK** to apply for the current session.
+  - A small dialog will appear where you can:
+    - **Enable or disable reminders** for the current session.
+    - **Adjust the reminder interval** in minutes.
+    - Optionally **enable left-click toggle**, so a single left-click on the tray icon turns reminders on/off.
+  - Click **OK** to apply the changes for the current session.
+
+- **About**
+  - Right-click the tray icon and select **About…** to see basic information about EyeRest:
+    - Version number, author, a short description and the GitHub link.
 
 - **Exit**
   - Right-click the tray icon and select **Exit** to close EyeRest.
@@ -149,21 +161,28 @@ EyeRest is implemented as a **Windows Forms tray application** with an `Applicat
     Application.Run(new EyeRestApplicationContext());
     ```
 
-- **Application context**
+-- **Application context**
   - `EyeRestApplicationContext`:
-    - Creates the tray `NotifyIcon` using `AppIcon.ico`.
-    - Attaches a context menu (Configuration / Exit) and handles double-click to open the configuration dialog.
+    - Creates the tray `NotifyIcon` using the main app icon and a separate snoozed icon when reminders are disabled.
+    - Attaches a context menu (**Options… / About… / Exit**) and handles double-click to open the Options dialog.
     - Manages a `System.Threading.Timer` that:
-      - Uses a 20-minute interval in Release builds (shorter in Debug for testing).
+      - Uses a configurable interval in Release builds (default 20 minutes, shorter in Debug for testing).
       - Runs callbacks on a ThreadPool thread and marshals UI work back to the UI thread via a small helper `Control`.
-      - On each tick, attempts to show a **toast notification**, and falls back to a tray balloon tip if necessary.
+      - On each tick, attempts to show a **toast notification**, falling back to a tray balloon tip if necessary.
 
-- **Configuration dialog**
-  - `Configuration` form:
-    - Has a single `CheckBox` bound to the `ShowMessage` setting.
-    - Reads the setting on `Shown`.
-    - Writes the setting back on `FormClosing` if the user clicked **OK**.
-    - Intentional design: settings are **not persisted** between runs, only stored in memory.
+- **Options dialog**
+  - `Options` form:
+    - Binds to an in-memory `ShowMessage` flag to control whether reminders are active.
+    - Provides a numeric input to set the **reminder interval in minutes** for the current session.
+    - Includes an option to **use left-click on the tray icon to toggle reminders**.
+    - Reads current values on `Shown` and applies changes on `FormClosing` when the user clicks **OK**.
+    - Intentional design: all settings are **per session only** and are not persisted across application restarts.
+
+- **About dialog**
+  - `AboutForm`:
+    - Displays the application name and version (from assembly metadata).
+    - Shows author and basic privacy information (no telemetry, no personal data collection).
+    - Provides a clickable link to the GitHub repository.
 
 ---
 
@@ -191,6 +210,7 @@ EyeRest/
 │     ├─ Configuration.Designer.cs
 │     ├─ Configuration.resx
 │     ├─ AppIcon.ico
+|     ├─ AppSnoozeIcon.ico
 │     ├─ app.config
 │     ├─ Properties/
 │     │  ├─ AssemblyInfo.cs
@@ -215,16 +235,16 @@ EyeRest/
 - **Language version:** C# 7.3
 - **Key concepts used:**
   - `ApplicationContext` for lifetime management without a main window.
-  - `NotifyIcon` for tray integration.
+  - `NotifyIcon` for tray integration and stateful tray icons (normal vs. snoozed).
   - `System.Threading.Timer` for background periodic callbacks, with marshaling back to the UI thread.
   - Windows 10/11 toast notifications via `Microsoft.Toolkit.Uwp.Notifications`, with tray balloon fallback.
   - Resource & settings management via `Resources.resx` and `Settings.settings`.
 
 If you want to extend EyeRest, some ideas:
 
-- Make the reminder interval configurable (e.g. slider or numeric input).
+- Persist options across sessions (save interval and toggle settings to user config).
+- Add richer snooze controls or notification actions.
 - Add basic logging instead of swallowing exceptions silently.
-- Add snooze controls or richer notification actions.
 - **Contributions are welcome** – feel free to open issues or submit pull requests.
 
 ---
@@ -258,5 +278,6 @@ If this tool helps you remember to look away from the screen from time to time, 
 The application icon is based on work by **Maxicons** from **https://icon-icons.com/**,  
 licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).  
 Original icon: https://icon-icons.com/icon/eye-disease-medical-health-retina-optical-lens/133505
+Snooze icon: https://icon-icons.com/icon/bed-sleep-insomnia-stress-night-awake-sad-moon/133514
 
 Stay healthy, and don’t forget to blink.

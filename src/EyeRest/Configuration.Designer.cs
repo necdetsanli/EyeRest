@@ -28,9 +28,14 @@ namespace EyeRest
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Configuration));
             this.showMessageCheckBox = new System.Windows.Forms.CheckBox();
+            this.intervalLabel = new System.Windows.Forms.Label();
+            this.intervalNumeric = new System.Windows.Forms.NumericUpDown();
+            this.useLeftClickCheckBox = new System.Windows.Forms.CheckBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.intervalNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // showMessageCheckBox
@@ -38,19 +43,60 @@ namespace EyeRest
             this.showMessageCheckBox.AutoSize = true;
             this.showMessageCheckBox.Checked = true;
             this.showMessageCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.showMessageCheckBox.Location = new System.Drawing.Point(18, 18);
+            this.showMessageCheckBox.Location = new System.Drawing.Point(15, 15);
             this.showMessageCheckBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.showMessageCheckBox.Name = "showMessageCheckBox";
-            this.showMessageCheckBox.Size = new System.Drawing.Size(263, 24);
+            this.showMessageCheckBox.Size = new System.Drawing.Size(159, 24);
             this.showMessageCheckBox.TabIndex = 0;
-            this.showMessageCheckBox.Text = "Warn Me After Every 20 Minutes";
+            this.showMessageCheckBox.Text = "Enable reminders";
             this.showMessageCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // intervalLabel
+            // 
+            this.intervalLabel.AutoSize = true;
+            this.intervalLabel.Location = new System.Drawing.Point(15, 50);
+            this.intervalLabel.Name = "intervalLabel";
+            this.intervalLabel.Size = new System.Drawing.Size(135, 20);
+            this.intervalLabel.TabIndex = 3;
+            this.intervalLabel.Text = "Interval (minutes):";
+            // 
+            // intervalNumeric
+            // 
+            this.intervalNumeric.Location = new System.Drawing.Point(180, 48);
+            this.intervalNumeric.Maximum = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+            this.intervalNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.intervalNumeric.Name = "intervalNumeric";
+            this.intervalNumeric.Size = new System.Drawing.Size(80, 26);
+            this.intervalNumeric.TabIndex = 4;
+            this.intervalNumeric.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            // 
+            // useLeftClickCheckBox
+            // 
+            this.useLeftClickCheckBox.AutoSize = true;
+            this.useLeftClickCheckBox.Location = new System.Drawing.Point(15, 86);
+            this.useLeftClickCheckBox.Name = "useLeftClickCheckBox";
+            this.useLeftClickCheckBox.Size = new System.Drawing.Size(228, 24);
+            this.useLeftClickCheckBox.TabIndex = 5;
+            this.useLeftClickCheckBox.Text = "Left-click toggles reminders";
+            this.useLeftClickCheckBox.UseVisualStyleBackColor = true;
             // 
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.saveButton.Location = new System.Drawing.Point(428, 101);
+            this.saveButton.Location = new System.Drawing.Point(388, 130);
             this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(112, 35);
@@ -62,7 +108,7 @@ namespace EyeRest
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(306, 101);
+            this.cancelButton.Location = new System.Drawing.Point(272, 130);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(112, 35);
@@ -74,18 +120,23 @@ namespace EyeRest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 155);
+            this.ClientSize = new System.Drawing.Size(516, 183);
+            this.Controls.Add(this.useLeftClickCheckBox);
+            this.Controls.Add(this.intervalNumeric);
+            this.Controls.Add(this.intervalLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.showMessageCheckBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "Configuration";
-            this.Text = "Configuration";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SaveSettings);
             this.Shown += new System.EventHandler(this.LoadSettings);
+            ((System.ComponentModel.ISupportInitialize)(this.intervalNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,6 +147,9 @@ namespace EyeRest
         private System.Windows.Forms.CheckBox showMessageCheckBox;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Label intervalLabel;
+        private System.Windows.Forms.NumericUpDown intervalNumeric;
+        private System.Windows.Forms.CheckBox useLeftClickCheckBox;
     }
 }
 
