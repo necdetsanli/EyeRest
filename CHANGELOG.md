@@ -21,6 +21,7 @@ and the project aims to follow [Semantic Versioning](https://semver.org/spec/v2.
 ### Added
 - Windows 10/11 **toast notifications** for reminder messages using `Microsoft.Toolkit.Uwp.Notifications`.
 - Fallback logic to use classic tray balloon tips when toast notifications are not available or fail at runtime.
+- Published EyeRest to the Microsoft Store as an MSIX-packaged Win32 desktop app.
 
 ### Changed
 - Replaced `System.Windows.Forms.Timer` with `System.Threading.Timer` to schedule reminders on a ThreadPool thread.
