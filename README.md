@@ -5,6 +5,12 @@
 </p>
 
 <p align="center">
+  <a href="https://apps.microsoft.com/detail/9MW31PJW185Q?referrer=appbadge&mode=full">
+	<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/></a>
+</p>
+
+
+<p align="center">
   <a href="https://github.com/necdetsanli/EyeRest/releases/latest"><img src="https://img.shields.io/github/v/release/necdetsanli/EyeRest?label=release" alt="Latest release" /></a>
   <a href="https://github.com/necdetsanli/EyeRest/releases"><img src="https://img.shields.io/github/downloads/necdetsanli/EyeRest/total?label=downloads" alt="Downloads" /></a>
   <a href="https://github.com/necdetsanli/EyeRest/blob/main/LICENSE"><img src="https://img.shields.io/github/license/necdetsanli/EyeRest?label=license" alt="License" /></a>
@@ -72,10 +78,20 @@ EyeRest helps you actually follow this rule by:
 
 ## 💾 Download
 
-For end users, the simplest way to install EyeRest is via the MSI installer:
+### From Microsoft Store
 
-1. Go to the **[Releases](https://github.com/necdetsanli/EyeRest/releases)** page of this repository.
-2. Download the latest `EyeRest-<version>-setup.msi` file (for example: `EyeRest-1.1.0-setup.msix`).
+EyeRest is available on the Microsoft Store:
+
+[**➡ Get EyeRest from Microsoft Store**](https://apps.microsoft.com/detail/9MW31PJW185Q?hl=en-us&gl=TR&ocid=pdpshare)
+
+> The Store version is packaged as an MSIX desktop app and benefits from the Store’s installation, update and validation mechanisms.
+
+### Direct download (GitHub Releases)
+
+If you prefer a direct installer:
+
+1. Go to the **[Releases](https://github.com/necdetsanli/EyeRest/releases)** page.
+2. Download the latest `EyeRest-<version>-setup.msi` file (for example: `EyeRest-1.1.0-setup.msi`).
 3. Double-click the MSI and follow the installation wizard.
 
 > After installation, EyeRest will be available from your Start menu and can be pinned or added to startup according to your preferences.
