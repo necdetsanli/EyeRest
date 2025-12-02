@@ -13,7 +13,7 @@
 <p align="center">
   <a href="https://github.com/necdetsanli/EyeRest/releases/latest"><img src="https://img.shields.io/github/v/release/necdetsanli/EyeRest?label=release" alt="Latest release" /></a>
   <a href="https://github.com/necdetsanli/EyeRest/releases"><img src="https://img.shields.io/github/downloads/necdetsanli/EyeRest/total?label=downloads" alt="Downloads" /></a>
-  <a href="https://github.com/necdetsanli/EyeRest/blob/main/LICENSE"><img src="https://img.shields.io/github/license/necdetsanli/EyeRest?label=license" alt="License" /></a>
+  <a href="https://github.com/necdetsanli/EyeRest/blob/master/LICENSE"><img src="https://img.shields.io/github/license/necdetsanli/EyeRest?label=license" alt="License" /></a>
   <img src="https://img.shields.io/badge/telemetry-none-success" alt="No telemetry" />
   <a href="https://github.com/0pandadev/awesome-windows"><img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome Windows" /></a>
 </p>
