@@ -163,7 +163,7 @@ EyeRest is implemented as a **Windows Forms tray application** with an `Applicat
     Application.Run(new EyeRestApplicationContext());
     ```
 
--- **Application context**
+- **Application context**
   - `EyeRestApplicationContext`:
     - Creates the tray `NotifyIcon` using the main app icon and a separate snoozed icon when reminders are disabled.
     - Attaches a context menu (**Options… / About… / Exit**) and handles double-click to open the Options dialog.
