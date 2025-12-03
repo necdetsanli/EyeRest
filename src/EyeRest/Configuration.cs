@@ -41,6 +41,24 @@ namespace EyeRest
             {
                 useLeftClickCheckBox.Checked = false;
             }
+
+            try
+            {
+                rememberSettingsCheckBox.Checked = EyeRestApplicationContext.RememberSettings;
+            }
+            catch
+            {
+                rememberSettingsCheckBox.Checked = false;
+            }
+
+            try
+            {
+                startWithWindowsCheckBox.Checked = EyeRestApplicationContext.StartWithWindows;
+            }
+            catch
+            {
+                startWithWindowsCheckBox.Checked = false;
+            }
         }
 
         // Save settings when the user confirms (DialogResult.OK).
@@ -50,7 +68,7 @@ namespace EyeRest
             if (this.DialogResult == DialogResult.OK)
             {
                 // Update in-memory setting so change takes effect this session.
-                // Do not call Save() to avoid persisting the user's choice across restarts.
+                // Do not call Save() to avoid persisting the user's choice across restarts (unless RememberSettings checked).
                 EyeRest.Properties.Settings.Default.ShowMessage = showMessageCheckBox.Checked;
 
                 try
@@ -71,7 +89,61 @@ namespace EyeRest
                     EyeRestApplicationContext.UseLeftClickToggle = false;
                 }
 
-                // Intentionally do not call Settings.Default.Save(); to keep defaults on app restart.
+                try
+                {
+                    EyeRestApplicationContext.RememberSettings = rememberSettingsCheckBox.Checked;
+                }
+                catch
+                {
+                    EyeRestApplicationContext.RememberSettings = false;
+                }
+
+                try
+                {
+                    EyeRestApplicationContext.StartWithWindows = startWithWindowsCheckBox.Checked;
+                }
+                catch
+                {
+                    EyeRestApplicationContext.StartWithWindows = false;
+                }
+
+                // If remember settings enabled, persist to INI
+                try
+                {
+                    if (EyeRestApplicationContext.RememberSettings)
+                    {
+                        string section = "General";
+                        IniSettingsHelper.WriteBool(section, "ShowMessage", EyeRest.Properties.Settings.Default.ShowMessage);
+                        IniSettingsHelper.WriteInt(section, "ReminderIntervalMinutes", EyeRestApplicationContext.ReminderIntervalMinutes);
+                        IniSettingsHelper.WriteBool(section, "UseLeftClickToggle", EyeRestApplicationContext.UseLeftClickToggle);
+                        IniSettingsHelper.WriteBool(section, "RememberSettings", EyeRestApplicationContext.RememberSettings);
+                        IniSettingsHelper.WriteBool(section, "StartWithWindows", EyeRestApplicationContext.StartWithWindows);
+
+                        // Apply autostart
+                        try
+                        {
+                            string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                            AutoStartHelper.SetAutoStart(EyeRestApplicationContext.StartWithWindows, exePath);
+                        }
+                        catch { }
+                    }
+                    else
+                    {
+                        // If user turned off remember settings, ensure autostart is cleared
+                        try
+                        {
+                            string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                            AutoStartHelper.SetAutoStart(false, exePath);
+                        }
+                        catch { }
+                    }
+                }
+                catch
+                {
+                    // swallow persistence errors
+                }
+
+                // Intentionally do not call Settings.Default.Save() to keep defaults on app restart unless user opted-in
             }
         }
     }

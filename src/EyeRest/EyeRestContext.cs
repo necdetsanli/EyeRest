@@ -11,11 +11,15 @@ namespace EyeRest
     public class EyeRestApplicationContext : ApplicationContext
     {
         // Session-configurable reminder interval in minutes. Default 20.
-        // This is intentionally not persisted to disk; it's an in-memory, per-session value.
+        // This is intentionally not persisted to disk unless RememberSettings is true.
         public static int ReminderIntervalMinutes = 20;
 
         // New session-only flag: whether left-click toggles reminders. Default: false to keep behavior predictable.
         public static bool UseLeftClickToggle = false;
+
+        // New flags for persistence and autostart
+        public static bool RememberSettings = false;
+        public static bool StartWithWindows = false;
 
         // Static icons used for the tray icon states. Do NOT dispose these anywhere.
         private static readonly Icon EnabledIcon = EyeRest.Properties.Resources.AppIcon;
@@ -63,11 +67,41 @@ namespace EyeRest
             // Create a timer but do not start it yet.
             myTimer = new System.Threading.Timer(ShowMessageCallback, null, Timeout.Infinite, Timeout.Infinite);
 
-            // Ensure the app defaults to showing notifications on each startup.
-            // This sets the in-memory setting only and does not persist the change.
+            // Default in-memory setting
             try { EyeRest.Properties.Settings.Default.ShowMessage = true; } catch { }
 
-            // Initialize notification state based on the (now-reset) setting
+            // Load persistent settings if present
+            try
+            {
+                string section = "General";
+                bool remember = EyeRest.IniSettingsHelper.ReadBool(section, "RememberSettings", false);
+                if (remember)
+                {
+                    RememberSettings = true;
+                    EyeRest.Properties.Settings.Default.ShowMessage = EyeRest.IniSettingsHelper.ReadBool(section, "ShowMessage", EyeRest.Properties.Settings.Default.ShowMessage);
+                    ReminderIntervalMinutes = EyeRest.IniSettingsHelper.ReadInt(section, "ReminderIntervalMinutes", ReminderIntervalMinutes);
+                    UseLeftClickToggle = EyeRest.IniSettingsHelper.ReadBool(section, "UseLeftClickToggle", UseLeftClickToggle);
+                    StartWithWindows = EyeRest.IniSettingsHelper.ReadBool(section, "StartWithWindows", StartWithWindows);
+
+                    // Apply autostart if enabled
+                    try
+                    {
+                        if (StartWithWindows)
+                        {
+                            string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                            EyeRest.AutoStartHelper.SetAutoStart(true, exePath);
+                        }
+                    }
+                    catch { }
+                }
+                else
+                {
+                    RememberSettings = false;
+                }
+            }
+            catch { }
+
+            // Initialize notification state based on the (possibly loaded) setting
             UpdateNotificationState();
 
             // Wire mouse events. Right-click still shows context menu automatically.
