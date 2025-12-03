@@ -33,6 +33,8 @@ namespace EyeRest
             this.intervalLabel = new System.Windows.Forms.Label();
             this.intervalNumeric = new System.Windows.Forms.NumericUpDown();
             this.useLeftClickCheckBox = new System.Windows.Forms.CheckBox();
+            this.rememberSettingsCheckBox = new System.Windows.Forms.CheckBox();
+            this.startWithWindowsCheckBox = new System.Windows.Forms.CheckBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.intervalNumeric)).BeginInit();
@@ -92,11 +94,31 @@ namespace EyeRest
             this.useLeftClickCheckBox.Text = "Left-click toggles reminders";
             this.useLeftClickCheckBox.UseVisualStyleBackColor = true;
             // 
+            // rememberSettingsCheckBox
+            // 
+            this.rememberSettingsCheckBox.AutoSize = true;
+            this.rememberSettingsCheckBox.Location = new System.Drawing.Point(15, 120);
+            this.rememberSettingsCheckBox.Name = "rememberSettingsCheckBox";
+            this.rememberSettingsCheckBox.Size = new System.Drawing.Size(254, 24);
+            this.rememberSettingsCheckBox.TabIndex = 6;
+            this.rememberSettingsCheckBox.Text = "Remember my settings for future sessions";
+            this.rememberSettingsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // startWithWindowsCheckBox
+            // 
+            this.startWithWindowsCheckBox.AutoSize = true;
+            this.startWithWindowsCheckBox.Location = new System.Drawing.Point(15, 152);
+            this.startWithWindowsCheckBox.Name = "startWithWindowsCheckBox";
+            this.startWithWindowsCheckBox.Size = new System.Drawing.Size(222, 24);
+            this.startWithWindowsCheckBox.TabIndex = 7;
+            this.startWithWindowsCheckBox.Text = "Start automatically with Windows";
+            this.startWithWindowsCheckBox.UseVisualStyleBackColor = true;
+            // 
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.saveButton.Location = new System.Drawing.Point(388, 130);
+            this.saveButton.Location = new System.Drawing.Point(388, 190);
             this.saveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(112, 35);
@@ -108,7 +130,7 @@ namespace EyeRest
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(272, 130);
+            this.cancelButton.Location = new System.Drawing.Point(272, 190);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(112, 35);
@@ -120,7 +142,9 @@ namespace EyeRest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(516, 183);
+            this.ClientSize = new System.Drawing.Size(516, 240);
+            this.Controls.Add(this.startWithWindowsCheckBox);
+            this.Controls.Add(this.rememberSettingsCheckBox);
             this.Controls.Add(this.useLeftClickCheckBox);
             this.Controls.Add(this.intervalNumeric);
             this.Controls.Add(this.intervalLabel);
@@ -150,6 +174,8 @@ namespace EyeRest
         private System.Windows.Forms.Label intervalLabel;
         private System.Windows.Forms.NumericUpDown intervalNumeric;
         private System.Windows.Forms.CheckBox useLeftClickCheckBox;
+        private System.Windows.Forms.CheckBox rememberSettingsCheckBox;
+        private System.Windows.Forms.CheckBox startWithWindowsCheckBox;
     }
 }
 
