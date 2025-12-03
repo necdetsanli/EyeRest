@@ -58,3 +58,8 @@ src/**/[Oo]bj/
 EyeRest.Setup/Debug/
 EyeRest.Setup/Release/
 *.msi
+
+# Chocolatey package outputs
+*.nupkg
+/out/
+/artifacts/
