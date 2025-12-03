@@ -272,7 +272,11 @@ See the [LICENSE](LICENSE) file for full license text.
 
 ---
 
-If you find EyeRest useful, consider starring the repository on GitHub or sharing it with others who spend long hours in front of a screen.
+## ⭐ Show your support
+
+If you like EyeRest or find it useful, consider giving the project a ⭐ on GitHub or sharing it with others who spend long hours in front of a screen.
+
+---
 
 ## 🙌 Acknowledgements
 
