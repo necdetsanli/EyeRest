@@ -29,9 +29,9 @@ every **20 minutes**, look at something **20 feet (~6 meters) away** for at leas
 EyeRest sits quietly in the Windows system tray and periodically nudges you to take a short visual break.  
 It is designed to be:
 
-- **Minimal** – no bloated UI, just a tray icon and a small configuration dialog.
+- **Minimal** – no bloated UI, just a tray icon and a small options dialog.
 - **Non-intrusive** – reminders are shown as **Windows 10/11 toast notifications** when possible, with a tray balloon fallback.
-- **Session-focused** – settings apply to the current run; when you restart the app, it goes back to the safe default of reminding you.
+- **Session-focused by default** – settings apply to the current run, with an option to **remember your preferences across sessions** and **start automatically with Windows** if you want it.
 
 EyeRest is built with **.NET Framework 4.8** and **Windows Forms**, targeting classic Windows desktop users who spend long hours in front of a screen.
 
@@ -65,10 +65,12 @@ EyeRest helps you actually follow this rule by:
   - Optional system sound (depending on OS settings).
 
 - ⚙️ **Simple options dialog**  
-  - Lets you **enable or disable reminders** for the current session.
+  - Lets you **enable or disable reminders**.
   - Allows configuring the **reminder interval in minutes** within a safe range.
   - Optional setting to **use left-click on the tray icon to toggle reminders** on/off.
-  - Accessible via the tray icon’s context menu (Options…) or by double-clicking the icon.
+  - Optional **“Remember my settings for future sessions”** checkbox to persist your preferences.
+  - Optional **“Start automatically with Windows”** checkbox to enable auto-start.
+  - Accessible via the tray icon’s context menu (**Options…**) or by double-clicking the icon.
 
 - 🧽 **Clean exit & resource management**  
   - Gracefully disposes the notify icon and timers on exit.
@@ -77,7 +79,11 @@ EyeRest helps you actually follow this rule by:
 
 - 🧱 **Safe defaults**  
   - Reminders are **enabled by default** on every start.
-  - Per-session configuration only (no persistent settings written to disk unless you decide to add that).
+  - By default, settings are **per-session only**.
+  - When “Remember my settings for future sessions” is enabled:
+    - Preferences are saved to a small **INI file (`EyeRest.ini`)**.
+    - The app first tries to store the INI next to the executable (for a portable-style setup).
+    - If the exe folder is not writable, it falls back to `%APPDATA%\EyeRest\EyeRest.ini`.
 
 - ℹ️ **About dialog**  
   - Shows app name, version, author information, a short privacy note, and a link to the GitHub repository.
@@ -90,7 +96,7 @@ EyeRest helps you actually follow this rule by:
 
 EyeRest is available on the Microsoft Store:
 
-[**➡ Get EyeRest from Microsoft Store**](https://apps.microsoft.com/detail/9MW31PJW185Q?hl=en-us&gl=TR&ocid=pdpshare)
+[**➡ Get EyeRest from Microsoft Store**](https://apps.microsoft.com/detail/9MW31PJW185Q?)
 
 > The Store version is packaged as an MSIX desktop app and benefits from the Store’s installation, update and validation mechanisms.
 
@@ -99,7 +105,7 @@ EyeRest is available on the Microsoft Store:
 If you prefer a direct installer:
 
 1. Go to the **[Releases](https://github.com/necdetsanli/EyeRest/releases)** page.
-2. Download the latest `EyeRest-<version>-setup.msi` file (for example: `EyeRest-1.2.0-setup.msi`).
+2. Download the latest `EyeRest-<version>-setup.msi` file (for example: `EyeRest-1.3.0-setup.msi`).
 3. Double-click the MSI and follow the installation wizard.
 
 > After installation, EyeRest will be available from your Start menu and can be pinned or added to startup according to your preferences.
@@ -134,14 +140,16 @@ Once EyeRest is running:
   - Appears in the Windows notification area (system tray).
   - Hover to see a tooltip about the current state (reminders enabled/disabled).
 
-- - **Options**
+- **Options**
   - Right-click the tray icon and select **Options…**  
     *or* double-click the icon.
   - A small dialog will appear where you can:
-    - **Enable or disable reminders** for the current session.
+    - **Enable or disable reminders**.
     - **Adjust the reminder interval** in minutes.
     - Optionally **enable left-click toggle**, so a single left-click on the tray icon turns reminders on/off.
-  - Click **OK** to apply the changes for the current session.
+    - Optionally **remember your settings for future sessions**.
+    - Optionally **start EyeRest automatically with Windows**.
+  - Click **OK** to apply the changes.
 
 - **About**
   - Right-click the tray icon and select **About…** to see basic information about EyeRest:
@@ -171,14 +179,22 @@ EyeRest is implemented as a **Windows Forms tray application** with an `Applicat
       - Uses a configurable interval in Release builds (default 20 minutes, shorter in Debug for testing).
       - Runs callbacks on a ThreadPool thread and marshals UI work back to the UI thread via a small helper `Control`.
       - On each tick, attempts to show a **toast notification**, falling back to a tray balloon tip if necessary.
+    - On startup, loads persisted settings (if enabled) from an **INI file** and applies them to the current session.
+    - When auto-start is enabled, sets/clears a `HKCU\Software\Microsoft\Windows\CurrentVersion\Run` entry so that EyeRest can start with Windows.
 
 - **Options dialog**
   - `Options` form:
     - Binds to an in-memory `ShowMessage` flag to control whether reminders are active.
-    - Provides a numeric input to set the **reminder interval in minutes** for the current session.
+    - Provides a numeric input to set the **reminder interval in minutes**.
     - Includes an option to **use left-click on the tray icon to toggle reminders**.
+    - Includes **“Remember my settings for future sessions”** and **“Start automatically with Windows”** checkboxes.
     - Reads current values on `Shown` and applies changes on `FormClosing` when the user clicks **OK**.
-    - Intentional design: all settings are **per session only** and are not persisted across application restarts.
+    - When “Remember my settings for future sessions” is enabled, uses an INI-based helper to persist:
+      - Reminder on/off
+      - Reminder interval
+      - Left-click toggle preference
+      - Auto-start preference
+    - By default, persistence is off; settings remain **per session only** unless the user explicitly opts in.
 
 - **About dialog**
   - `AboutForm`:
@@ -213,6 +229,8 @@ EyeRest/
 │     ├─ Configuration.resx
 │     ├─ AppIcon.ico
 |     ├─ AppSnoozeIcon.ico
+|     ├─ AutoStartHelper.cs
+|     ├─ IniSettingsHelper.cs
 │     ├─ app.config
 │     ├─ Properties/
 │     │  ├─ AssemblyInfo.cs
@@ -241,12 +259,14 @@ EyeRest/
   - `System.Threading.Timer` for background periodic callbacks, with marshaling back to the UI thread.
   - Windows 10/11 toast notifications via `Microsoft.Toolkit.Uwp.Notifications`, with tray balloon fallback.
   - Resource & settings management via `Resources.resx` and `Settings.settings`.
+  - INI-based settings using WinAPI helpers, with a **portable-first** strategy (exe folder if writable, otherwise `%APPDATA%\EyeRest`).
+  - Auto-start integration via `HKCU\Software\Microsoft\Windows\CurrentVersion\Run` when the user enables “Start with Windows”.
 
 If you want to extend EyeRest, some ideas:
 
-- Persist options across sessions (save interval and toggle settings to user config).
 - Add richer snooze controls or notification actions.
 - Add basic logging instead of swallowing exceptions silently.
+- Add more advanced scheduling (e.g. work hours vs. off hours).
 - **Contributions are welcome** – feel free to open issues or submit pull requests.
 
 ---

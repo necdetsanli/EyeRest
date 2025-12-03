@@ -9,9 +9,25 @@ and the project aims to follow [Semantic Versioning](https://semver.org/spec/v2.
 
 ## [Unreleased]
 
+### Planned
+- Snooze functionality to temporarily pause reminders
+- More flexible notification options (sound on/off, different cues)
+- Show a brief notification when the app starts to confirm that EyeRest is running
+- Add an option to check for updates (e.g. against the latest GitHub release)
+
+---
+
+## [1.3.0] - 2025-12-03
+
 ### Added
-- (Planned) Snooze functionality to temporarily pause reminders
-- (Planned) More flexible notification options (sound on/off, different cues)
+- Optional **“Remember my settings for future sessions”** option in the Options dialog.
+- Optional **“Start automatically with Windows”** option, using the HKCU `Run` key for the current user.
+- INI-based settings storage (`EyeRest.ini`) with a **portable-first** strategy:
+  - Tries to store settings next to the executable if the folder is writable.
+  - Falls back to `%APPDATA%\EyeRest\EyeRest.ini` when the exe directory is not writable.
+
+### Changed
+- Updated documentation (README) to describe persistent settings, auto-start behavior, and the INI-based configuration approach.
 
 ---
 
@@ -89,7 +105,8 @@ and the project aims to follow [Semantic Versioning](https://semver.org/spec/v2.
 
 ---
 
-[Unreleased]: https://github.com/necdetsanli/EyeRest/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/necdetsanli/EyeRest/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.3.0
 [1.2.0]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.2.0
 [1.1.0]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.1.0
 [1.0.1]: https://github.com/necdetsanli/EyeRest/releases/tag/v1.0.1
