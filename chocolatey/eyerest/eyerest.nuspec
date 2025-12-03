@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <!-- == PACKAGE SPECIFIC SECTION == -->
+    <id>eyerest</id>
+    <version>1.3.0</version>
+
+    <!-- Chocolatey package metadata -->
+    <packageSourceUrl>https://github.com/necdetsanli/EyeRest</packageSourceUrl>
+    <owners>necdetsanli</owners>
+
+    <!-- == SOFTWARE SPECIFIC SECTION == -->
+    <title>EyeRest</title>
+    <authors>Necdet Şanlı</authors>
+
+    <!-- Main project / homepage -->
+    <projectUrl>https://github.com/necdetsanli/EyeRest</projectUrl>
+
+    <!-- Icon shown on community feed -->
+    <iconUrl>http://rawcdn.githack.com/necdetsanli/EyeRest/master/assets/icon.png</iconUrl>
+
+    <!-- License information (MIT) -->
+    <licenseUrl>https://github.com/necdetsanli/EyeRest/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+    <!-- Source, docs, issues specifically for this app -->
+    <projectSourceUrl>https://github.com/necdetsanli/EyeRest</projectSourceUrl>
+    <docsUrl>https://github.com/necdetsanli/EyeRest#readme</docsUrl>
+    <bugTrackerUrl>https://github.com/necdetsanli/EyeRest/issues</bugTrackerUrl>
+
+    <!-- Tags are space-separated -->
+    <tags>eyerest eye health 20-20-20 tray notification windows winforms dotnet</tags>
+
+    <!-- Short one-line summary -->
+    <summary>Lightweight Windows tray app that reminds you to follow the 20–20–20 rule for eye health.</summary>
+
+    <!-- Longer description (Markdown allowed) -->
+    <description>
+EyeRest is a small Windows tray application that helps you follow the 20–20–20 rule for eye health by showing periodic desktop notifications.
+
+It runs in the Windows notification area, uses Windows 10/11 toast notifications when available (with a tray balloon fallback), and lets you configure:
+- Reminder interval (for example every 5–60 minutes)
+- Whether reminders are enabled
+- Optional left-click toggle on the tray icon
+- Optional persistent settings and "Start with Windows" for the current user
+
+The app is built with .NET Framework 4.8 and WinForms, is open source, and does not collect any personal data or telemetry. For full details, source code, and privacy information, see the project page.
+    </description>
+
+    <!-- Optional but nice to have -->
+    <releaseNotes>See https://github.com/necdetsanli/EyeRest/releases/tag/v1.3.0 for the full changelog.</releaseNotes>
+  </metadata>
+
+  <files>
+    <!-- this section controls what actually gets packaged into the Chocolatey package -->
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

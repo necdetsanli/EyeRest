@@ -1,0 +1,45 @@
+﻿VERIFICATION
+Verification is intended to assist Chocolatey moderators and the community
+in verifying that this package's contents are trustworthy.
+
+1. Upstream project and binaries
+
+The EyeRest application and installer are developed and maintained by the
+original author:
+
+  Project: https://github.com/necdetsanli/EyeRest
+  License: MIT
+
+The Windows installer used by this Chocolatey package is published by the
+same author on the official GitHub Releases page.
+
+2. Download location
+
+The MSI installer is downloaded from the GitHub release assets:
+
+  https://github.com/necdetsanli/EyeRest/releases/download/v1.3.0/EyeRest-1.3.0-setup.msi
+
+This is the same URL used in chocolateyinstall.ps1.
+
+3. Checksum verification
+
+To verify the integrity of the installer, compute the SHA256 checksum of the
+downloaded MSI and compare it to the checksum specified in chocolateyinstall.ps1.
+
+Example (PowerShell):
+
+  PS> Get-FileHash -Algorithm SHA256 'EyeRest-1.3.0-setup.msi'
+
+The expected SHA256 checksum is:
+
+  SHA256:  1C9BF2706B8459A4F6FDF11B3654F188C16EE322BD9EBEF2D62FA0E52D782EA9
+
+(Replace INSERT_SHA256_CHECKSUM_HERE with the actual value used in
+chocolateyinstall.ps1.)
+
+4. Build / authorship notes
+
+EyeRest is built from the source code in the repository above and the MSI
+installer is produced and published by the same author (Necdet Şanlı).
+There are no third-party repackaged binaries; this package simply automates
+installation of the official MSI published on GitHub Releases.
