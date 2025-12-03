@@ -283,7 +283,7 @@ If you like EyeRest or find it useful, consider giving the project a ⭐ on GitH
 EyeRest is inspired by the need to protect our eyes during long coding, gaming, or office sessions.  
 If this tool helps you remember to look away from the screen from time to time, it’s doing its job.
 
-The application icon is based on work by **Maxicons** from **https://icon-icons.com/**,  
+The application icons are based on work by **Maxicons** from **https://icon-icons.com/**,  
 licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).  
 
 Original icon: https://icon-icons.com/icon/eye-disease-medical-health-retina-optical-lens/133505
