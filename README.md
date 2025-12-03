@@ -14,7 +14,7 @@
   <a href="https://github.com/necdetsanli/EyeRest/releases/latest"><img src="https://img.shields.io/github/v/release/necdetsanli/EyeRest?label=release" alt="Latest release" /></a>
   <a href="https://github.com/necdetsanli/EyeRest/releases"><img src="https://img.shields.io/github/downloads/necdetsanli/EyeRest/total?label=downloads" alt="Downloads" /></a>
   <a href="https://github.com/necdetsanli/EyeRest/blob/master/LICENSE"><img src="https://img.shields.io/github/license/necdetsanli/EyeRest?label=license" alt="License" /></a>
-  <img src="https://img.shields.io/badge/telemetry-none-success" alt="No telemetry" style="pointer-events: none;"/>
+  <a href="PRIVACY.md"><img src="https://img.shields.io/badge/telemetry-none-success" alt="No telemetry" /></a>
   <a href="https://github.com/0pandadev/awesome-windows"><img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome Windows" /></a>
 </p>
 
@@ -211,6 +211,7 @@ A typical repository layout for EyeRest might look like:
 ```text
 EyeRest/
 ├─ README.md
+├─ PRIVACY.md
 ├─ CHANGELOG.md
 ├─ LICENSE
 ├─ CONTRIBUTING.md
@@ -291,6 +292,19 @@ For a detailed list of changes and release history, see the [CHANGELOG](CHANGELO
 
 Contributions are welcome!  
 Please check [CONTRIBUTING](CONTRIBUTING.md) for guidelines on reporting issues and submitting pull requests.
+
+---
+
+## 🔒 Privacy
+
+EyeRest is designed to run entirely on your local machine:
+
+- **No telemetry** – the app does not collect, send, or store any analytics data.
+- **No personal data** is collected, stored, or transmitted.
+- **No network access** – EyeRest does not make outbound connections; its behavior is limited to showing notifications, updating the tray icon, and displaying small dialogs.
+- **Local settings only** – when persistence is enabled, settings are stored locally just to remember your own preferences.
+
+For more details, see [PRIVACY.md](PRIVACY.md).
 
 ---
 
