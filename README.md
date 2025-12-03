@@ -219,6 +219,16 @@ EyeRest/
 ├─ .editorconfig
 ├─ assets/
 │  └─ icon.png
+├─ chocolatey/
+│  └─ eyerest/
+|     ├─ tools/
+│     │  ├─ chocolateybeforemodify.ps1
+│     │  ├─ chocolateyinstall.ps1
+│     │  ├─ chocolateyuninstall.ps1
+│     │  ├─ LICENSE.txt
+│     │  └─ VERIFICATION.txt
+│     ├─ eyerest.nuspec     
+│     └─ ReadMe.md    
 ├─ src/
 │  └─ EyeRest/
 │     ├─ EyeRest.csproj
